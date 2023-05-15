@@ -38,9 +38,9 @@ df.info()
 
 df.isnull().sum()
 
-sbn.barplot(x=df['Segment'],data=df)
+sbn.barplot(x=df['Segment'],y=df['Sales'])
 
-plt.title("Highest Sales of the Segment")
+plt.title("Highest Sales of the segment")
 
 sbn.barplot(x=df['City'],y=df['Profit'])
 
@@ -68,7 +68,7 @@ sbn.barplot(x=df['Ship Mode'],y=df['Profit'])
 
 plt.title("Number of profits in Ship Mode")
 
-sbn.barplot(x=df['Region'],y=df['Sales'])
+sbn.barplot(x=df['Sales'], y=df['Region'])
 
 plt.title("Sales of Product based on Region")
 
@@ -76,25 +76,102 @@ sbn.lineplot(x=df['Sales'], y=df['Profit'])
 
 plt.title("Relation between Sales and Profit")
 
-sbn.barplot(x=df['Segment'],y=df['Profit'])
+grouped_data = df.groupby('Segment')[['Sales', 'Profit']].mean()
+
+# Create a bar chart of the grouped data
+
+fig, ax = plt.subplots()
+
+ax.bar(grouped_data.index, grouped_data['Sales'], label='Sales')
+
+ax.bar(grouped_data.index, grouped_data['Profit'], bottom=grouped_data['Sales'], label='Profit')
+
+ax.set_xlabel('Segment')
+
+ax.set_ylabel('Value')
+
+ax.legend()
 
 plt.title("Sales and Profit based on Segment")
 
-sbn.barplot(x=df['City'],y=df['Profit'])
+plt.show()
+
+grouped_data = df.groupby('City')[['Sales', 'Profit']].mean()
+
+# Create a bar chart of the grouped data
+
+fig, ax = plt.subplots()
+
+ax.bar(grouped_data.index, grouped_data['Sales'], label='Sales')
+
+ax.bar(grouped_data.index, grouped_data['Profit'], bottom=grouped_data['Sales'], label='Profit')
+
+ax.set_xlabel('City')
+
+ax.set_ylabel('Value')
+
+ax.legend()
 
 plt.title("Sales and Profit based on City")
 
-sbn.barplot(x=df['Region'],y=df['Profit'])
+plt.show()
+
+grouped_data = df.groupby('State')[['Sales', 'Profit']].mean()
+
+# Create a bar chart of the grouped data
+
+fig, ax = plt.subplots()
+
+ax.bar(grouped_data.index, grouped_data['Sales'], label='Sales')
+
+ax.bar(grouped_data.index, grouped_data['Profit'], bottom=grouped_data['Sales'], label='Profit')
+
+ax.set_xlabel('State')
+
+ax.set_ylabel('Value')
+
+ax.legend()
 
 plt.title("Sales and Profit based on States")
 
-sbn.barplot(x=df['Ship Mode'],y=df['Profit'])
+grouped_data = df.groupby(['Segment', 'Ship Mode'])[['Sales', 'Profit']].mean()
 
-plt.title("Sales and Profit based on Ship mode")
+pivot_data = grouped_data.reset_index().pivot(index='Segment', columns='Ship Mode', values=['Sales', 'Profit'])
 
-sbn.barplot(x=df['Sales'],y=df['Profit'])
+# Create a bar chart of the grouped data
 
-plt.title("Sales and Profit based on Segment")
+fig, ax = plt.subplots()
+
+pivot_data.plot(kind='bar', ax=ax)
+
+ax.set_xlabel('Segment')
+
+ax.set_ylabel('Value')
+
+plt.legend(title='Ship Mode')
+
+plt.legend(loc="best")
+
+plt.title("Sales and Profit based on Segment and Ship mode")
+
+plt.show()
+
+grouped_data = df.groupby(['Segment', 'Ship Mode','Region'])[['Sales', 'Profit']].mean()
+
+pivot_data = grouped_data.reset_index().pivot(index=['Segment', 'Ship Mode'], columns='Region', values=['Sales', 'Profit'])
+
+sbn.set_style("whitegrid")
+
+sbn.set_palette("Set1")
+
+pivot_data.plot(kind='bar', stacked=True, figsize=(8, 5))
+
+plt.legend(title='Region')
+
+plt.legend(loc='best')
+
+plt.title("Sales and Profit based on Segment,Ship mode and Region")
+
 
 
 # OUTPUT:
@@ -105,27 +182,28 @@ plt.title("Sales and Profit based on Segment")
 
 ![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/68dbbc72-3b9a-43fe-b6cf-e90646ac458b)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/6fa29f75-3316-49bb-80dc-1aefcad9bd04)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/cbf5bc9f-5e2f-4152-8ed1-e66aef90426c)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/3ef417c5-302f-4e93-8287-b15db9dbb851)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/9583ccf2-aa8b-4824-9a9f-57d55dfe85a9)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/553be871-c1b2-4e56-9d8c-c1a4046c6df5)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/2151cac0-60ba-41fb-b3d3-ec9cb15fc32d)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/c185cfde-dd55-4e0b-8215-85c641b83d94)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/e29d03e8-69b9-46ad-9f08-1ee46a3c616e)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/4baf445e-7c17-4d72-94fc-d6d040191eee)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/0c03c066-e8a2-4efa-adca-c6cc854520ea)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/b9b675aa-1fda-4217-bda3-590d90b85309)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/cac9b8eb-0a3f-4096-8f93-a80f6fa1acf3)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/2ff5089d-5349-4953-b8df-93e07a5f2bcc)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/f56edb9f-6964-4e61-9fab-0597bbd866ce)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/dc63be52-789e-4afe-adfc-2ea9d95bc282)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/f5cf0f09-78da-4a1f-800b-47419d1ccd05)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/2ddc86a7-ffb7-48e8-bb69-92b760374027)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/3bf4d97a-ce3f-4e07-a71b-2e9c575d7a3a)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/52042663-017e-4657-bf2d-de833a5a03ff)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/96f97dde-5160-40d5-8e45-e29a3b05ae02)
 
-![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/acb25b43-8782-4732-9384-d7f929cdb63f)
+![image](https://github.com/akshitha-ks/Data-Visualization/assets/123535064/18df6e55-22ce-4a64-a785-484f02b11ac7)
+
 
 
 # RESULT:
