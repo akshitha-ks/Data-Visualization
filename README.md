@@ -78,7 +78,7 @@ plt.title("Relation between Sales and Profit")
 
 grouped_data = df.groupby('Segment')[['Sales', 'Profit']].mean()
 
-# Create a bar chart of the grouped data
+#Create a bar chart of the grouped data
 
 fig, ax = plt.subplots()
 
@@ -98,7 +98,7 @@ plt.show()
 
 grouped_data = df.groupby('City')[['Sales', 'Profit']].mean()
 
-# Create a bar chart of the grouped data
+#Create a bar chart of the grouped data
 
 fig, ax = plt.subplots()
 
@@ -118,7 +118,7 @@ plt.show()
 
 grouped_data = df.groupby('State')[['Sales', 'Profit']].mean()
 
-# Create a bar chart of the grouped data
+#Create a bar chart of the grouped data
 
 fig, ax = plt.subplots()
 
@@ -138,7 +138,7 @@ grouped_data = df.groupby(['Segment', 'Ship Mode'])[['Sales', 'Profit']].mean()
 
 pivot_data = grouped_data.reset_index().pivot(index='Segment', columns='Ship Mode', values=['Sales', 'Profit'])
 
-# Create a bar chart of the grouped data
+#Create a bar chart of the grouped data
 
 fig, ax = plt.subplots()
 
